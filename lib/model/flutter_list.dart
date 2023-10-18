@@ -61,9 +61,11 @@ class _FlutterItem extends StatelessWidget{
   
   final Fwitter fwitter;
   final DocumentReference<Fwitter> reference;
-  
+  double rating = 0;
 
-  _FlutterItem(this.fwitter,this.reference);
+  _FlutterItem(this.fwitter,this.reference){
+    rating = fwitter.likes.toDouble();
+  }
 
   Widget get user {
     return Text(
@@ -92,10 +94,9 @@ class _FlutterItem extends StatelessWidget{
       style: const TextStyle(fontSize: 14),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    //final fwittersRef = FirebaseFirestore.instance.collection('fwitters');
     return Card(
       elevation: 2,
       margin: EdgeInsets.all(10),
@@ -116,12 +117,11 @@ class _FlutterItem extends StatelessWidget{
             SizedBox(height: 12),
             Row(
               children: [
-                //Icon(Icons.favorite, color: Colors.grey, size: 14),
                 Text('Puntaje: '),
                 likes,
                 Text('    '),
                 RatingBar.builder(
-                  initialRating: 0, // Puntuación inicial (puedes ajustarla según tus necesidades)
+                  initialRating: rating, // Puntuación inicial (puedes ajustarla según tus necesidades)
                   minRating: 1, // Puntuación mínima
                   direction: Axis.horizontal, // Dirección de las estrellas
                   allowHalfRating: false, // Permite puntuación decimal
@@ -131,9 +131,17 @@ class _FlutterItem extends StatelessWidget{
                     Icons.star,
                     color: Colors.amber, // Color de las estrellas
                   ),
-                  onRatingUpdate: (rating) {
-                    // Maneja la puntuación actual
-                    print('Puntuación: $rating');
+                  onRatingUpdate: (newRating) async {
+                    // Actualiza la variable de puntuación
+                    rating = newRating;
+                    // Actualiza el número de "likes" en Firestore
+                    await reference.update({
+                      'likes': newRating.toInt(), // Convierte la puntuación a entero
+                    });
+                    setState(() {
+                      rating = newRating;
+                    });
+
                   },
                 ),
                 Text('    '),
@@ -146,4 +154,6 @@ class _FlutterItem extends StatelessWidget{
       ),
     ); 
   }
+  
+  void setState(Null Function() param0) {}
 }

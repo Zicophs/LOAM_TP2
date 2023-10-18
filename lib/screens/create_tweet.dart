@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 
 class EscribirTweet extends StatefulWidget {
   const EscribirTweet({super.key});
@@ -20,7 +20,7 @@ class _EscribirTweetState extends State<EscribirTweet> {
       firestoreInstance.collection('fwitters').add({
         'user': 'Nico',
         'post': tweetText,
-        'date': DateTime.now().toString(),
+        'date': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now()),
         'likes': 0,
       });
 

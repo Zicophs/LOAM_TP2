@@ -10,34 +10,28 @@ class Avatar extends StatelessWidget {
       future: getImage(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-          //final imgURL = snapshot.data;
+          final imgURL = snapshot.data;
           return CircleAvatar(
-            radius: 15,
+            radius: 20,
             /*child: Image.network(
               imgURL.toString(),
               fit: BoxFit.cover, // Ajusta el contenido de la imagen para cubrir el círculo
             ),*/
             //backgroundImage: NetworkImage(imgURL.toString()),
             //backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/prueba-dfe12.appspot.com/o/N.png?alt=media&token=b30c729b-ecd1-46f0-bbc7-b2bd430df9f7"),
-            backgroundImage:  NetworkImage(imageUrl),
+            //backgroundImage:  NetworkImage(imgURL.toString()),
           );
         } else {
-          return const CircularProgressIndicator(); // Muestra un indicador de carga mientras se descarga la imagen
+          return const SizedBox(); // Muestra un indicador de carga mientras se descarga la imagen
         }
       },
     );
   }
 
   Future<String> getImage() async {
-    final storageRef = FirebaseStorage.instance.ref('gs://prueba-dfe12.appspot.com');
+    //final storageRef = FirebaseStorage.instance.ref('gs://prueba-dfe12.appspot.com');
     //final imageUrl = await storageRef.child("pochita.jpg").getDownloadURL();
-    final imageUrl = await storageRef.child("N.png").getDownloadURL();
-    return imageUrl;
+    //final imageUrl = await storageRef.child("N.png").getDownloadURL();
+    return 'imageUrl';
   }
-}
-
-
-String imageUrl = "https://firebasestorage.googleapis.com/v0/b/prueba-dfe12.appspot.com/o/N.png?alt=media&token=b30c729b-ecd1-46f0-bbc7-b2bd430df9f7";
-Widget get imagen{
-  return Image.network(imageUrl);
 }
