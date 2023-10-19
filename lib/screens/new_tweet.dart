@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fwitter/screens/create_tweet.dart';
+import 'package:fwitter/services/create_tweet.dart';
 
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+class NewTweetScreen extends StatelessWidget {
+  const NewTweetScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

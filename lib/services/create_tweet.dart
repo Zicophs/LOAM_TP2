@@ -22,6 +22,7 @@ class _EscribirTweetState extends State<EscribirTweet> {
         'post': tweetText,
         'date': DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now()),
         'likes': 0,
+        'avatarImg': 'https://firebasestorage.googleapis.com/v0/b/prueba-dfe12.appspot.com/o/N.png?alt=media&token=b30c729b-ecd1-46f0-bbc7-b2bd430df9f7',
       });
 
     }else {
